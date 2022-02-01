@@ -1,0 +1,7 @@
+<?xml version = "1.0"?>
+<connector name="postgres">
+        <databaseName>postgres</databaseName>
+        <username>jack</username>
+        <password>31454354</password>
+</connector>
+

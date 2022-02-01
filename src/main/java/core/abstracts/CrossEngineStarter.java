@@ -2,7 +2,7 @@ package core.abstracts;
 
 public interface CrossEngineStarter {
 
-    void run(String mainClassPath);
+    void run();
 
     void reflector();
 

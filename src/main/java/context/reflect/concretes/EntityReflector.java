@@ -4,7 +4,7 @@ public class EntityReflector {
     private final ConfigurationReflector reflector;
 
     public EntityReflector(String mainClassPath) {
-        this.reflector = new ConfigurationReflector(mainClassPath);
+        this.reflector = new ConfigurationReflector();
     }
 
 }

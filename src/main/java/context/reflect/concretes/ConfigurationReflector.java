@@ -1,23 +1,34 @@
 package context.reflect.concretes;
 
 import connection.connector.abstracts.CrossConnector;
-import connection.enums.JDBCType;
+import org.reflections.Reflections;
+import org.reflections.scanners.*;
+import org.reflections.util.ClasspathHelper;
 
-import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 public class ConfigurationReflector {
 
-    private String mainPath;
     private CrossConnector connector;
-    public ConfigurationReflector(String mainPath){}
 
-    {
+    private volatile Reflections reflections;
 
+
+    public void getReflections() {
+        if(reflections==null){
+            synchronized (ConfigurationReflector.class) {
+                if (reflections == null) {
+                    reflections = new Reflections(ClasspathHelper.forJavaClassPath(),Scanners.Resources,Scanners.TypesAnnotated,Scanners.SubTypes,Scanners.FieldsAnnotated);
+                }
+            }
+        }
     }
 
-    private void getConnector(JDBCType jdbcType, Map<String,String> properties){
-        connector = jdbcType.getConnection(properties.get("url"),properties.get("user"),properties.get("password"));
+    public Set<String> getJCrossXmlPaths() {
+        if(reflections==null) getReflections();
+        return reflections.getResources(Pattern.compile(".*cross\\.xml"));
     }
 
-    
+
 }
